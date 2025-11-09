@@ -1,0 +1,19 @@
+{
+  "name": "Hidu Drinks",
+  "short_name": "Hidu",
+  "description": "Nơi hương vị gặp gỡ cảm xúc - Đồ uống chất lượng tại Phan Thiết",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#faf8f5",
+  "theme_color": "#9d7c6b",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
+
