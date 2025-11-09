@@ -2,6 +2,7 @@
 import Card from '../ui/Card.astro';
 import { menuItems } from '../../data/menu';
 import { CATEGORIES } from '../../utils/constants';
+import { getMenuImageUrl } from '../../utils/imageHelper';
 import type { Category } from '../../types';
 
 interface Props {
@@ -59,23 +60,14 @@ const categories = ['all', ...Object.keys(CATEGORIES)] as const;
         >
           <Card>
             {/* Image */}
-            <div class="relative h-56 bg-gradient-pastel overflow-hidden group">
-              <div class="absolute inset-0 flex items-center justify-center transition-transform group-hover:scale-110 duration-300">
-                <div class="text-center p-4">
-                  <svg
-                    class="w-16 h-16 mx-auto mb-2 text-white opacity-60"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fill-rule="evenodd"
-                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                      clip-rule="evenodd"
-                    />
-                  </svg>
-                  <p class="text-white text-xs line-clamp-2">{item.image}</p>
-                </div>
-              </div>
+            <div class="relative h-56 overflow-hidden group bg-gray-100">
+              <img
+                src={getMenuImageUrl(item.category, index)}
+                alt={item.name}
+                class="w-full h-full object-cover transition-transform group-hover:scale-110 duration-300"
+                loading="lazy"
+                onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400&h=300&fit=crop'"
+              />
 
               {/* Badges */}
               <div class="absolute top-3 left-3 flex flex-col gap-1.5">
@@ -101,7 +93,7 @@ const categories = ['all', ...Object.keys(CATEGORIES)] as const;
             </div>
 
             {/* Content */}
-            <div class="p-5">
+            <div class="p-5 flex flex-col flex-1">
               <div class="mb-3">
                 <span class="text-xs font-medium text-primary-600 uppercase tracking-wide">
                   {CATEGORIES[item.category]}
@@ -112,16 +104,26 @@ const categories = ['all', ...Object.keys(CATEGORIES)] as const;
                 {item.name}
               </h3>
 
-              <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[2.5rem]">
                 {item.description}
               </p>
 
-              <div class="flex items-center justify-between">
-                <span class="text-2xl font-bold text-gradient">
-                  {item.price.toLocaleString('vi-VN')}đ
-                </span>
+              <div class="flex items-center justify-between mt-auto">
+                <div>
+                  {item.priceLarge ? (
+                    <div class="text-sm text-gray-600">
+                      <span class="font-semibold">M:</span> {item.price.toLocaleString('vi-VN')}đ
+                      <span class="mx-2">|</span>
+                      <span class="font-semibold">L:</span> {item.priceLarge.toLocaleString('vi-VN')}đ
+                    </div>
+                  ) : (
+                    <span class="text-2xl font-bold text-gradient">
+                      {item.price.toLocaleString('vi-VN')}đ
+                    </span>
+                  )}
+                </div>
                 <button
-                  class="px-4 py-2 rounded-full bg-primary-500 text-white hover:bg-primary-600 active:scale-95 transition-all text-sm font-semibold shadow-md hover:shadow-lg"
+                  class="px-4 py-2 rounded-full bg-primary-500 text-white hover:bg-primary-600 active:scale-95 transition-all text-sm font-semibold shadow-md hover:shadow-lg flex-shrink-0"
                   data-item-id={item.id}
                   data-item-name={item.name}
                   data-item-price={item.price}

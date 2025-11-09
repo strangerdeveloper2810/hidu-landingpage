@@ -53,13 +53,22 @@ const seoConfig = {
             <div data-aos="fade-up" data-aos-delay={index * 100}>
               <Card>
                 {/* Image */}
-                <div class="relative h-56 gradient-sunset overflow-hidden">
+                <div class="relative h-56 overflow-hidden">
+                  <img
+                    src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=600&h=400&fit=crop"
+                    alt={promo.title}
+                    class="w-full h-full object-cover"
+                    loading="lazy"
+                  />
+                  <div class="absolute inset-0 bg-gradient-to-b from-primary-900/70 via-primary-900/50 to-primary-900/70"></div>
+                  
+                  {/* Discount Overlay */}
                   <div class="absolute inset-0 flex items-center justify-center">
                     <div class="text-center p-6">
-                      <div class="text-6xl font-bold text-white mb-4">
+                      <div class="text-6xl font-bold text-white mb-4 drop-shadow-lg">
                         {promo.discount}
                       </div>
-                      <p class="text-white text-lg">{promo.title}</p>
+                      <p class="text-white text-lg font-semibold drop-shadow-md">{promo.title}</p>
                     </div>
                   </div>
 

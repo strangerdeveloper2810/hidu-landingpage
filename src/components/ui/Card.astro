@@ -8,7 +8,7 @@ interface Props {
 const { hover = true, glass = false, class: className = '' } = Astro.props;
 
 const classes = `
-  rounded-2xl overflow-hidden bg-white shadow-lg
+  rounded-2xl overflow-hidden bg-white shadow-lg flex flex-col h-full
   ${hover ? 'card-hover' : ''}
   ${glass ? 'glass' : ''}
   ${className}

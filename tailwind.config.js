@@ -1,49 +1,65 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
   theme: {
     extend: {
       colors: {
+        // Warm beige/brown color scheme based on menu design
         primary: {
-          50: '#fff7ed',
-          100: '#ffedd5',
-          200: '#fed7aa',
-          300: '#fdba74',
-          400: '#fb923c',
-          500: '#f97316',
-          600: '#ea580c',
-          700: '#c2410c',
-          800: '#9a3412',
-          900: '#7c2d12',
+          50: '#faf8f5',
+          100: '#f5f0e8',
+          200: '#e8ddd0',
+          300: '#d4c4b0',
+          400: '#b8a08a',
+          500: '#9d7c6b', // Main brown
+          600: '#7d6354',
+          700: '#5d4a3f',
+          800: '#3d312a',
+          900: '#1d1815',
         },
         secondary: {
-          50: '#fdf2f8',
-          100: '#fce7f3',
-          200: '#fbcfe8',
-          300: '#f9a8d4',
-          400: '#f472b6',
-          500: '#ec4899',
-          600: '#db2777',
-          700: '#be185d',
-          800: '#9f1239',
-          900: '#831843',
+          50: '#fef7f0',
+          100: '#fdeee0',
+          200: '#fbdcc1',
+          300: '#f8c9a2',
+          400: '#f5b683',
+          500: '#f2a364', // Warm orange
+          600: '#c28250',
+          700: '#92623c',
+          800: '#614128',
+          900: '#312114',
         },
         accent: {
-          50: '#f0fdfa',
-          100: '#ccfbf1',
-          200: '#99f6e4',
-          300: '#5eead4',
-          400: '#2dd4bf',
-          500: '#14b8a6',
-          600: '#0d9488',
-          700: '#0f766e',
-          800: '#115e59',
-          900: '#134e4a',
+          50: '#faf5f0',
+          100: '#f5ebe0',
+          200: '#ebd7c1',
+          300: '#e1c3a2',
+          400: '#d7af83',
+          500: '#cd9b64', // Beige accent
+          600: '#a47c50',
+          700: '#7b5d3c',
+          800: '#523e28',
+          900: '#291f14',
+        },
+        // Coffee shop specific colors
+        coffee: {
+          light: '#d4c4b0',
+          DEFAULT: '#9d7c6b',
+          dark: '#5d4a3f',
+        },
+        beige: {
+          light: '#faf8f5',
+          DEFAULT: '#f5f0e8',
+          dark: '#e8ddd0',
         },
       },
       fontFamily: {
         display: ['Poppins', 'ui-sans-serif', 'system-ui', 'sans-serif'],
         body: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
+      backgroundImage: {
+        'gradient-beige': 'linear-gradient(135deg, #faf8f5 0%, #f5f0e8 50%, #e8ddd0 100%)',
+        'gradient-coffee': 'linear-gradient(135deg, #d4c4b0 0%, #9d7c6b 50%, #5d4a3f 100%)',
       },
     },
   },

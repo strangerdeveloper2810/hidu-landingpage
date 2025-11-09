@@ -5,9 +5,9 @@ import { menuItems } from '../../data/menu';
 import { CATEGORIES } from '../../utils/constants';
 ---
 
-<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+<div class="max-w-2xl mx-auto">
   <!-- Order Form -->
-  <div data-aos="fade-right">
+  <div data-aos="fade-up">
     <Card>
       <div class="p-8">
         <h3 class="text-2xl font-bold mb-6 text-gradient">Đặt hàng</h3>
@@ -61,7 +61,7 @@ import { CATEGORIES } from '../../utils/constants';
           </div>
 
           <!-- Add Item Modal (hidden by default) -->
-          <div id="add-item-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div id="add-item-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-[100] flex items-center justify-center p-4">
             <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
               <div class="p-6">
                 <div class="flex justify-between items-center mb-4">
@@ -100,91 +100,17 @@ import { CATEGORIES } from '../../utils/constants';
             rows={3}
           />
 
-          <div class="flex items-center justify-between pt-4">
-            <div class="text-2xl font-bold text-gradient" id="order-total">
+          <div class="pt-4 space-y-4">
+            <div class="text-2xl font-bold text-gradient text-center" id="order-total">
               Tổng: 0đ
             </div>
             <button
               type="submit"
-              class="btn-primary"
+              class="btn-primary w-full text-lg py-3 min-h-[52px]"
             >
               Đặt hàng
             </button>
           </div>
-        </form>
-      </div>
-    </Card>
-  </div>
-
-  <!-- Reservation Form -->
-  <div data-aos="fade-left">
-    <Card>
-      <div class="p-8">
-        <h3 class="text-2xl font-bold mb-6 text-gradient">Đặt bàn</h3>
-
-        <form id="reservation-form" class="space-y-4">
-          <Input
-            name="reservation-name"
-            label="Họ và tên"
-            placeholder="Nguyễn Văn A"
-            required
-          />
-
-          <Input
-            name="reservation-phone"
-            type="tel"
-            label="Số điện thoại"
-            placeholder="0123 456 789"
-            required
-          />
-
-          <div class="grid grid-cols-2 gap-4">
-            <Input
-              name="reservation-date"
-              type="date"
-              label="Ngày"
-              required
-            />
-
-            <Input
-              name="reservation-time"
-              type="time"
-              label="Giờ"
-              required
-            />
-          </div>
-
-          <div class="mb-4">
-            <label for="reservation-guests" class="block text-sm font-medium text-gray-700 mb-2">
-              Số người <span class="text-red-500">*</span>
-            </label>
-            <select
-              id="reservation-guests"
-              name="reservation-guests"
-              required
-              class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition-all duration-300"
-            >
-              <option value="">Chọn số người</option>
-              {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
-                <option value={num}>{num} người</option>
-              ))}
-            </select>
-          </div>
-
-          <Input
-            name="reservation-note"
-            type="textarea"
-            label="Ghi chú"
-            placeholder="Yêu cầu đặc biệt (ví dụ: cần chỗ ngồi yên tĩnh, sinh nhật...)"
-            rows={3}
-          />
-
-          <button
-            type="submit"
-            class="btn-primary w-full"
-          >
-            Đặt bàn
-          </button>
         </form>
       </div>
     </Card>
@@ -331,26 +257,5 @@ import { CATEGORIES } from '../../utils/constants';
     (e.target as HTMLFormElement).reset();
     orderItems = [];
     updateOrderDisplay();
-  });
-
-  // Reservation form submission
-  document.getElementById('reservation-form')?.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const formData = new FormData(e.target as HTMLFormElement);
-    const data = {
-      name: formData.get('reservation-name'),
-      phone: formData.get('reservation-phone'),
-      date: formData.get('reservation-date'),
-      time: formData.get('reservation-time'),
-      guests: formData.get('reservation-guests'),
-      note: formData.get('reservation-note'),
-    };
-
-    console.log('Reservation data:', data);
-    alert('Đặt bàn thành công! (Frontend only - Backend sẽ được phát triển sau)');
-
-    // Reset form
-    (e.target as HTMLFormElement).reset();
   });
 </script>

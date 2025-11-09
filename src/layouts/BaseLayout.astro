@@ -60,6 +60,9 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta name="theme-color" content="#9d7c6b" />
 
     <!-- Robots -->
     {noIndex && <meta name="robots" content="noindex, nofollow" />}
@@ -104,7 +107,7 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 
     <Header />
 
-    <main id="main-content" class="pt-20">
+    <main id="main-content" class="pt-20 lg:pt-24">
       <slot />
     </main>
 

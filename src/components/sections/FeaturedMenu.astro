@@ -2,6 +2,7 @@
 import Card from '../ui/Card.astro';
 import Button from '../ui/Button.astro';
 import { menuItems } from '../../data/menu';
+import { getMenuImageUrl } from '../../utils/imageHelper';
 
 // Get popular and best seller items
 const featuredItems = menuItems.filter(
@@ -9,7 +10,7 @@ const featuredItems = menuItems.filter(
 ).slice(0, 6);
 ---
 
-<section class="section-padding bg-gray-50">
+<section class="section-padding bg-beige-light">
   <div class="container-custom">
     <!-- Section Header -->
     <div class="text-center mb-16" data-aos="fade-up">
@@ -27,29 +28,20 @@ const featuredItems = menuItems.filter(
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
       {
         featuredItems.map((item, index) => (
-          <div data-aos="fade-up" data-aos-delay={index * 100}>
+          <div data-aos="fade-up" data-aos-delay={index * 100} class="group">
             <Card>
               <!-- Image -->
-              <div class="relative h-64 bg-gradient-pastel overflow-hidden">
-                {/* Placeholder for menu item image */}
-                <div class="absolute inset-0 flex items-center justify-center">
-                  <div class="text-center p-4">
-                    <svg
-                      class="w-20 h-20 mx-auto mb-2 text-white opacity-60"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <p class="text-white text-xs">
-                      {item.image}
-                    </p>
-                  </div>
-                </div>
+              <div class="relative h-64 overflow-hidden rounded-t-2xl bg-gray-100">
+                <img
+                  src={getMenuImageUrl(item.category, index)}
+                  alt={item.name}
+                  class="w-full h-full object-cover transition-transform group-hover:scale-110 duration-300"
+                  loading="lazy"
+                  onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=400&h=300&fit=crop'"
+                />
+                
+                {/* Hover overlay */}
+                <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
 
                 {/* Badges */}
                 <div class="absolute top-4 left-4 flex flex-col gap-2">
@@ -72,20 +64,20 @@ const featuredItems = menuItems.filter(
               </div>
 
               {/* Content */}
-              <div class="p-6">
+              <div class="p-6 flex flex-col flex-1">
                 <h3 class="text-xl font-bold mb-2 text-gray-800">
                   {item.name}
                 </h3>
-                <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                <p class="text-gray-600 text-sm mb-4 line-clamp-2 min-h-[2.5rem]">
                   {item.description}
                 </p>
 
-                <div class="flex items-center justify-between">
+                <div class="flex items-center justify-between mt-auto">
                   <span class="text-2xl font-bold text-gradient">
                     {item.price.toLocaleString('vi-VN')}đ
                   </span>
                   <button
-                    class="px-4 py-2 rounded-full bg-primary-500 text-white hover:bg-primary-600 transition-colors text-sm font-semibold"
+                    class="px-4 py-2 rounded-full bg-primary-500 text-white hover:bg-primary-600 transition-colors text-sm font-semibold flex-shrink-0"
                     data-item-id={item.id}
                   >
                     Đặt ngay

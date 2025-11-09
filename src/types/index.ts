@@ -7,6 +7,7 @@ export interface MenuItem {
   name: string;
   description: string;
   price: number;
+  priceLarge?: number; // For items with M/L sizes
   category: Category;
   image: string;
   isPopular?: boolean;
@@ -16,10 +17,13 @@ export interface MenuItem {
 
 export type Category =
   | 'coffee'
+  | 'matcha'
+  | 'cacao'
+  | 'juice'
+  | 'topping'
   | 'tea'
   | 'milktea'
   | 'smoothie'
-  | 'juice'
   | 'special';
 
 export interface Promotion {

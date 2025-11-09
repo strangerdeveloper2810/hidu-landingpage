@@ -6,14 +6,20 @@ import { SHOP_INFO } from '../../utils/constants';
 
 <header
   id="header"
-  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-white bg-opacity-95 backdrop-blur-sm py-2 lg:py-3"
 >
   <div class="container-custom">
-    <div class="flex items-center justify-between py-4">
+    <div class="flex items-center justify-between">
       <!-- Logo -->
-      <a href="/" class="flex items-center space-x-2 group">
-        <div class="w-12 h-12 rounded-full gradient-sunset flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-          <span class="text-white font-bold text-xl">H</span>
+      <a href="/" class="flex items-center space-x-2 group flex-shrink-0">
+        <div class="w-12 h-12 rounded-full overflow-hidden shadow-lg group-hover:scale-110 transition-transform duration-300 ring-2 ring-primary-200 bg-primary-100 flex items-center justify-center">
+          <img
+            src="https://images.unsplash.com/photo-1517487881594-2787fef5ebf7?w=150&h=150&fit=crop"
+            alt="Hidu Drinks Logo"
+            class="w-full h-full object-cover"
+            loading="eager"
+            onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ccircle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%239d7c6b%22/%3E%3Ctext x=%2250%22 y=%2265%22 font-size=%2240%22 font-weight=%22bold%22 fill=%22white%22 text-anchor=%22middle%22%3EH%3C/text%3E%3C/svg%3E'"
+          />
         </div>
         <div>
           <h1 class="text-xl font-bold text-gradient">{SHOP_INFO.name}</h1>
@@ -22,10 +28,12 @@ import { SHOP_INFO } from '../../utils/constants';
       </a>
 
       <!-- Navigation -->
-      <Navigation />
+      <div class="flex-1 flex justify-center px-8 lg:px-16">
+        <Navigation />
+      </div>
 
       <!-- CTA Button -->
-      <div class="hidden lg:block">
+      <div class="hidden lg:block flex-shrink-0">
         <Button href="/contact" variant="primary">
           Đặt hàng ngay
         </Button>
@@ -43,9 +51,14 @@ import { SHOP_INFO } from '../../utils/constants';
     const currentScroll = window.pageYOffset;
 
     if (currentScroll > 100) {
-      header?.classList.add('bg-white', 'shadow-md');
+      header?.classList.add('bg-white', 'shadow-md', 'bg-opacity-100');
+      header?.classList.remove('bg-opacity-95');
     } else {
-      header?.classList.remove('bg-white', 'shadow-md');
+      header?.classList.remove('bg-opacity-100');
+      header?.classList.add('bg-opacity-95');
+      if (currentScroll === 0) {
+        header?.classList.remove('shadow-md');
+      }
     }
 
     // Hide header on scroll down, show on scroll up

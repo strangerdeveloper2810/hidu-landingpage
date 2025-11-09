@@ -8,7 +8,7 @@ export const SHOP_INFO: ShopInfo = {
   tagline: 'Nơi hương vị gặp gỡ cảm xúc',
   description:
     'Không gian ấm cúng với đa dạng đồ uống chất lượng, từ cà phê thơm ngon đến trà sữa đậm đà, phù hợp cho mọi lứa tuổi.',
-  address: '123 Đường ABC, Quận XYZ, TP. Hồ Chí Minh',
+  address: 'W3GQ+27J, Trương Gia Hội, Phú Tài, Thành phố Phan Thiết, Bình Thuận, Việt Nam',
   phone: '0123 456 789',
   email: 'contact@hidudrinks.com',
   openingHours: {
@@ -27,10 +27,13 @@ export const SHOP_INFO: ShopInfo = {
  */
 export const CATEGORIES: Record<Category, string> = {
   coffee: 'Cà Phê',
+  matcha: 'Matcha',
+  cacao: 'Cacao',
+  juice: 'Nước Ép',
+  topping: 'Topping',
   tea: 'Trà',
   milktea: 'Trà Sữa',
   smoothie: 'Sinh Tố',
-  juice: 'Nước Ép',
   special: 'Đặc Biệt',
 };
 
