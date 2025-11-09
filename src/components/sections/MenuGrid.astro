@@ -1,0 +1,228 @@
+---
+import Card from '../ui/Card.astro';
+import { menuItems } from '../../data/menu';
+import { CATEGORIES } from '../../utils/constants';
+import type { Category } from '../../types';
+
+interface Props {
+  filterCategory?: Category | 'all';
+}
+
+const { filterCategory = 'all' } = Astro.props;
+
+const filteredItems =
+  filterCategory === 'all'
+    ? menuItems
+    : menuItems.filter((item) => item.category === filterCategory);
+
+const categories = ['all', ...Object.keys(CATEGORIES)] as const;
+---
+
+<div class="container-custom">
+  <!-- Category Filter -->
+  <div
+    class="flex flex-wrap justify-center gap-4 mb-12"
+    data-aos="fade-up"
+    id="category-filter"
+  >
+    {
+      categories.map((cat) => (
+        <button
+          class={`
+            px-6 py-3 rounded-full font-semibold transition-all duration-300
+            ${
+              filterCategory === cat
+                ? 'gradient-primary text-white shadow-lg scale-105'
+                : 'bg-white text-gray-700 hover:bg-gray-100 shadow'
+            }
+          `}
+          data-category={cat}
+        >
+          {cat === 'all' ? 'Tất cả' : CATEGORIES[cat as Category]}
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- Menu Grid -->
+  <div
+    class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+    id="menu-grid"
+  >
+    {
+      filteredItems.map((item, index) => (
+        <div
+          class="menu-item"
+          data-category={item.category}
+          data-aos="fade-up"
+          data-aos-delay={Math.min(index * 50, 400)}
+        >
+          <Card>
+            {/* Image */}
+            <div class="relative h-56 bg-gradient-pastel overflow-hidden group">
+              <div class="absolute inset-0 flex items-center justify-center transition-transform group-hover:scale-110 duration-300">
+                <div class="text-center p-4">
+                  <svg
+                    class="w-16 h-16 mx-auto mb-2 text-white opacity-60"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4 3a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V5a2 2 0 00-2-2H4zm12 12H4l4-8 3 6 2-4 3 6z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                  <p class="text-white text-xs line-clamp-2">{item.image}</p>
+                </div>
+              </div>
+
+              {/* Badges */}
+              <div class="absolute top-3 left-3 flex flex-col gap-1.5">
+                {item.isNew && (
+                  <span class="bg-green-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                    Mới
+                  </span>
+                )}
+                {item.isBestSeller && (
+                  <span class="bg-yellow-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                    Bán chạy
+                  </span>
+                )}
+                {item.isPopular && (
+                  <span class="bg-red-500 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow">
+                    Phổ biến
+                  </span>
+                )}
+              </div>
+
+              {/* Hover overlay */}
+              <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition-all duration-300" />
+            </div>
+
+            {/* Content */}
+            <div class="p-5">
+              <div class="mb-3">
+                <span class="text-xs font-medium text-primary-600 uppercase tracking-wide">
+                  {CATEGORIES[item.category]}
+                </span>
+              </div>
+
+              <h3 class="text-lg font-bold mb-2 text-gray-800 line-clamp-1">
+                {item.name}
+              </h3>
+
+              <p class="text-gray-600 text-sm mb-4 line-clamp-2">
+                {item.description}
+              </p>
+
+              <div class="flex items-center justify-between">
+                <span class="text-2xl font-bold text-gradient">
+                  {item.price.toLocaleString('vi-VN')}đ
+                </span>
+                <button
+                  class="px-4 py-2 rounded-full bg-primary-500 text-white hover:bg-primary-600 active:scale-95 transition-all text-sm font-semibold shadow-md hover:shadow-lg"
+                  data-item-id={item.id}
+                  data-item-name={item.name}
+                  data-item-price={item.price}
+                >
+                  Chọn
+                </button>
+              </div>
+            </div>
+          </Card>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Empty state -->
+  <div id="empty-state" class="hidden text-center py-20">
+    <svg
+      class="w-24 h-24 mx-auto mb-6 text-gray-300"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"
+      ></path>
+    </svg>
+    <p class="text-xl text-gray-500">Không tìm thấy món nào</p>
+  </div>
+</div>
+
+<script>
+  // Category filter functionality
+  const filterButtons = document.querySelectorAll('[data-category]');
+  const menuItems = document.querySelectorAll('.menu-item');
+  const emptyState = document.getElementById('empty-state');
+
+  filterButtons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const category = button.getAttribute('data-category');
+
+      // Update active state
+      filterButtons.forEach((btn) => {
+        btn.classList.remove(
+          'gradient-primary',
+          'text-white',
+          'shadow-lg',
+          'scale-105'
+        );
+        btn.classList.add('bg-white', 'text-gray-700', 'hover:bg-gray-100', 'shadow');
+      });
+
+      button.classList.remove('bg-white', 'text-gray-700', 'hover:bg-gray-100', 'shadow');
+      button.classList.add('gradient-primary', 'text-white', 'shadow-lg', 'scale-105');
+
+      // Filter items
+      let visibleCount = 0;
+      menuItems.forEach((item) => {
+        const itemCategory = item.getAttribute('data-category');
+        if (category === 'all' || itemCategory === category) {
+          item.classList.remove('hidden');
+          visibleCount++;
+        } else {
+          item.classList.add('hidden');
+        }
+      });
+
+      // Show/hide empty state
+      if (visibleCount === 0) {
+        emptyState?.classList.remove('hidden');
+      } else {
+        emptyState?.classList.add('hidden');
+      }
+    });
+  });
+
+  // Add to cart functionality
+  document.querySelectorAll('[data-item-id]').forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const itemId = btn.getAttribute('data-item-id');
+      const itemName = btn.getAttribute('data-item-name');
+      const itemPrice = btn.getAttribute('data-item-price');
+
+      console.log('Add to cart:', { itemId, itemName, itemPrice });
+
+      // Visual feedback
+      const originalText = btn.textContent;
+      btn.textContent = '✓ Đã thêm';
+      btn.classList.add('bg-green-500');
+      btn.classList.remove('bg-primary-500');
+
+      setTimeout(() => {
+        btn.textContent = originalText;
+        btn.classList.remove('bg-green-500');
+        btn.classList.add('bg-primary-500');
+      }, 1500);
+
+      // TODO: Implement actual cart functionality
+    });
+  });
+</script>

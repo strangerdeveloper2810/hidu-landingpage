@@ -1,0 +1,130 @@
+---
+import { NAV_ITEMS } from '../../utils/constants';
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav class="hidden md:flex items-center space-x-8">
+  {
+    NAV_ITEMS.map((item) => {
+      const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+
+      return (
+        <a
+          href={item.href}
+          class={`
+            text-sm font-medium transition-all duration-300
+            relative group
+            ${
+              isActive
+                ? 'text-primary-600'
+                : 'text-gray-700 hover:text-primary-600'
+            }
+          `}
+        >
+          {item.label}
+          <span
+            class={`
+              absolute bottom-0 left-0 w-full h-0.5 bg-gradient-primary
+              transform transition-transform duration-300
+              ${isActive ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'}
+            `}
+          />
+        </a>
+      );
+    })
+  }
+</nav>
+
+<!-- Mobile Navigation -->
+<button
+  id="mobile-menu-btn"
+  class="md:hidden flex flex-col justify-center items-center w-10 h-10 space-y-1.5"
+  aria-label="Toggle menu"
+>
+  <span class="w-6 h-0.5 bg-gray-800 transition-all duration-300"></span>
+  <span class="w-6 h-0.5 bg-gray-800 transition-all duration-300"></span>
+  <span class="w-6 h-0.5 bg-gray-800 transition-all duration-300"></span>
+</button>
+
+<!-- Mobile Menu Overlay -->
+<div
+  id="mobile-menu"
+  class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden hidden"
+>
+  <div class="fixed right-0 top-0 h-full w-64 bg-white shadow-xl transform transition-transform duration-300 translate-x-full">
+    <div class="p-6">
+      <button
+        id="mobile-menu-close"
+        class="absolute top-4 right-4 text-gray-600 hover:text-gray-900"
+        aria-label="Close menu"
+      >
+        <svg
+          class="w-6 h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          ></path>
+        </svg>
+      </button>
+
+      <nav class="mt-8 space-y-4">
+        {
+          NAV_ITEMS.map((item) => {
+            const isActive = currentPath === item.href || (item.href !== '/' && currentPath.startsWith(item.href));
+
+            return (
+              <a
+                href={item.href}
+                class={`
+                  block px-4 py-2 rounded-lg font-medium transition-colors
+                  ${
+                    isActive
+                      ? 'bg-primary-50 text-primary-600'
+                      : 'text-gray-700 hover:bg-gray-100'
+                  }
+                `}
+              >
+                {item.label}
+              </a>
+            );
+          })
+        }
+      </nav>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuClose = document.getElementById('mobile-menu-close');
+  const menuPanel = mobileMenu?.querySelector('div') as HTMLElement;
+
+  function openMenu() {
+    mobileMenu?.classList.remove('hidden');
+    setTimeout(() => {
+      menuPanel?.classList.remove('translate-x-full');
+    }, 10);
+  }
+
+  function closeMenu() {
+    menuPanel?.classList.add('translate-x-full');
+    setTimeout(() => {
+      mobileMenu?.classList.add('hidden');
+    }, 300);
+  }
+
+  menuBtn?.addEventListener('click', openMenu);
+  menuClose?.addEventListener('click', closeMenu);
+  mobileMenu?.addEventListener('click', (e) => {
+    if (e.target === mobileMenu) closeMenu();
+  });
+</script>

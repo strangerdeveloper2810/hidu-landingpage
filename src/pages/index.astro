@@ -1,16 +1,183 @@
 ---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/sections/Hero.astro';
+import FeaturedMenu from '../components/sections/FeaturedMenu.astro';
+import PromotionBanner from '../components/sections/PromotionBanner.astro';
+import Button from '../components/ui/Button.astro';
+import Card from '../components/ui/Card.astro';
+import { SHOP_INFO } from '../utils/constants';
 
+const seoConfig = {
+  title: 'Trang chủ',
+  description: SHOP_INFO.description,
+  keywords: [
+    'đồ uống',
+    'cà phê',
+    'trà sữa',
+    'sinh tố',
+    'nước ép',
+    SHOP_INFO.name,
+    'quán nước',
+    'TP.HCM',
+  ],
+};
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<BaseLayout {...seoConfig}>
+  <!-- Hero Section -->
+  <Hero />
+
+  <!-- Featured Menu -->
+  <FeaturedMenu />
+
+  <!-- Promotion Banner -->
+  <PromotionBanner />
+
+  <!-- Why Choose Us Section -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+          Tại sao chọn <span class="text-gradient">chúng tôi</span>?
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Những lý do khách hàng yêu thích và quay lại với chúng tôi
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* Feature 1 */}
+        <div class="text-center" data-aos="fade-up" data-aos-delay="0">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full gradient-primary flex items-center justify-center shadow-lg"
+          >
+            <svg
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Chất lượng đảm bảo</h3>
+          <p class="text-gray-600">
+            Nguyên liệu tươi ngon, quy trình pha chế chuẩn chỉnh
+          </p>
+        </div>
+
+        {/* Feature 2 */}
+        <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full gradient-secondary flex items-center justify-center shadow-lg"
+          >
+            <svg
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Phục vụ nhanh chóng</h3>
+          <p class="text-gray-600">
+            Thời gian chờ tối thiểu, đồ uống luôn được phục vụ tươi mới
+          </p>
+        </div>
+
+        {/* Feature 3 */}
+        <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full gradient-accent flex items-center justify-center shadow-lg"
+          >
+            <svg
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Không gian thoải mái</h3>
+          <p class="text-gray-600">
+            Thiết kế hiện đại, ấm cúng, phù hợp mọi lứa tuổi
+          </p>
+        </div>
+
+        {/* Feature 4 */}
+        <div class="text-center" data-aos="fade-up" data-aos-delay="300">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full gradient-ocean flex items-center justify-center shadow-lg"
+          >
+            <svg
+              class="w-10 h-10 text-white"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              ></path>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold mb-3">Giá cả hợp lý</h3>
+          <p class="text-gray-600">
+            Nhiều ưu đãi hấp dẫn, combo tiết kiệm cho học sinh sinh viên
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="section-padding gradient-sunset">
+    <div class="container-custom">
+      <div class="text-center text-white" data-aos="zoom-in">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Sẵn sàng thưởng thức?
+        </h2>
+        <p class="text-xl mb-8 text-white text-opacity-90 max-w-2xl mx-auto">
+          Ghé thăm chúng tôi ngay hôm nay hoặc đặt hàng online để nhận ưu đãi
+          đặc biệt!
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <Button
+            href="/contact"
+            variant="outline"
+            size="lg"
+            class="bg-white text-primary-600 hover:bg-gray-100 border-white"
+          >
+            Đặt hàng ngay
+          </Button>
+          <Button
+            href="/menu"
+            variant="ghost"
+            size="lg"
+            class="bg-white bg-opacity-20 text-white hover:bg-opacity-30 border-2 border-white"
+          >
+            Xem thực đơn
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

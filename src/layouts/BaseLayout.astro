@@ -1,0 +1,167 @@
+---
+import Header from '../components/layout/Header.astro';
+import Footer from '../components/layout/Footer.astro';
+import '../styles/global.css';
+import 'aos/dist/aos.css';
+import type { SEOConfig } from '../types';
+import { DEFAULT_SEO, SHOP_INFO } from '../utils/constants';
+
+interface Props {
+  title: string;
+  description?: string;
+  keywords?: string[];
+  ogImage?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = SHOP_INFO.description,
+  keywords = [],
+  ogImage = '/images/og-default.jpg',
+  noIndex = false,
+} = Astro.props;
+
+const fullTitle = `${title} | ${SHOP_INFO.name}`;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Primary Meta Tags -->
+    <title>{fullTitle}</title>
+    <meta name="title" content={fullTitle} />
+    <meta name="description" content={description} />
+    {keywords.length > 0 && <meta name="keywords" content={keywords.join(', ')} />}
+    <meta name="author" content={SHOP_INFO.name} />
+    <link rel="canonical" href={canonicalURL} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:site_name" content={DEFAULT_SEO.siteName} />
+    <meta property="og:locale" content={DEFAULT_SEO.locale} />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta property="twitter:url" content={canonicalURL} />
+    <meta property="twitter:title" content={fullTitle} />
+    <meta property="twitter:description" content={description} />
+    <meta property="twitter:image" content={new URL(ogImage, Astro.site)} />
+    {DEFAULT_SEO.twitterHandle && <meta property="twitter:site" content={DEFAULT_SEO.twitterHandle} />}
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Robots -->
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'Restaurant',
+      name: SHOP_INFO.name,
+      description: SHOP_INFO.description,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: SHOP_INFO.address,
+      },
+      telephone: SHOP_INFO.phone,
+      email: SHOP_INFO.email,
+      openingHours: [
+        `Mo-Fr ${SHOP_INFO.openingHours.weekday}`,
+        `Sa-Su ${SHOP_INFO.openingHours.weekend}`,
+      ],
+      priceRange: '$$',
+      servesCuisine: 'Beverages',
+      url: Astro.site,
+    })} />
+  </head>
+  <body>
+    <!-- Skip to main content for accessibility -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-primary-500 focus:text-white focus:rounded-lg"
+    >
+      Skip to main content
+    </a>
+
+    <Header />
+
+    <main id="main-content" class="pt-20">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <!-- Initialize AOS (Animate On Scroll) -->
+    <script>
+      import AOS from 'aos';
+
+      document.addEventListener('DOMContentLoaded', () => {
+        AOS.init({
+          duration: 800,
+          easing: 'ease-out-cubic',
+          once: true,
+          offset: 100,
+        });
+      });
+    </script>
+
+    <!-- Back to top button -->
+    <button
+      id="back-to-top"
+      class="fixed bottom-8 right-8 w-12 h-12 rounded-full gradient-primary text-white shadow-lg opacity-0 pointer-events-none transition-all duration-300 hover:scale-110 z-40"
+      aria-label="Back to top"
+    >
+      <svg
+        class="w-6 h-6 mx-auto"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+      </svg>
+    </button>
+
+    <script>
+      // Back to top button functionality
+      const backToTopBtn = document.getElementById('back-to-top');
+
+      window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+          backToTopBtn?.classList.remove('opacity-0', 'pointer-events-none');
+        } else {
+          backToTopBtn?.classList.add('opacity-0', 'pointer-events-none');
+        }
+      });
+
+      backToTopBtn?.addEventListener('click', () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth',
+        });
+      });
+    </script>
+  </body>
+</html>

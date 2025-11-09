@@ -1,0 +1,268 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/ui/Card.astro';
+import { SHOP_INFO } from '../utils/constants';
+
+const seoConfig = {
+  title: 'Về chúng tôi',
+  description: `Tìm hiểu về ${SHOP_INFO.name} - câu chuyện, sứ mệnh và đội ngũ của chúng tôi. Nơi mang đến trải nghiệm đồ uống tuyệt vời nhất.`,
+  keywords: ['về chúng tôi', 'câu chuyện', 'đội ngũ', SHOP_INFO.name],
+};
+
+const values = [
+  {
+    icon: '🎯',
+    title: 'Chất lượng là hàng đầu',
+    description:
+      'Cam kết sử dụng nguyên liệu tươi ngon nhất, quy trình pha chế chuẩn chỉnh',
+  },
+  {
+    icon: '❤️',
+    title: 'Phục vụ tận tâm',
+    description:
+      'Đội ngũ nhân viên thân thiện, nhiệt tình, luôn lắng nghe khách hàng',
+  },
+  {
+    icon: '🌱',
+    title: 'Bền vững & Trách nhiệm',
+    description:
+      'Quan tâm đến môi trường, sử dụng nguyên liệu hữu cơ và bao bì thân thiện',
+  },
+  {
+    icon: '✨',
+    title: 'Đổi mới không ngừng',
+    description:
+      'Liên tục cập nhật menu mới, theo kịp xu hướng, mang đến trải nghiệm mới mẻ',
+  },
+];
+
+const team = [
+  {
+    name: 'Nguyễn Văn A',
+    role: 'Founder & CEO',
+    description: '10 năm kinh nghiệm trong ngành F&B',
+  },
+  {
+    name: 'Trần Thị B',
+    role: 'Head Barista',
+    description: 'Chuyên gia pha chế cà phê đạt giải quốc tế',
+  },
+  {
+    name: 'Lê Văn C',
+    role: 'Marketing Manager',
+    description: 'Chuyên gia marketing với 8 năm kinh nghiệm',
+  },
+  {
+    name: 'Phạm Thị D',
+    role: 'Operations Manager',
+    description: 'Quản lý vận hành chuyên nghiệp',
+  },
+];
+---
+
+<BaseLayout {...seoConfig}>
+  <!-- Page Header -->
+  <section class="relative py-20 gradient-ocean overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute top-10 right-10 w-60 h-60 bg-white rounded-full blur-3xl animate-float"
+      >
+      </div>
+      <div
+        class="absolute bottom-10 left-10 w-80 h-80 bg-white rounded-full blur-3xl animate-float"
+        style="animation-delay: 2s;"
+      >
+      </div>
+    </div>
+
+    <div class="container-custom relative z-10">
+      <div class="text-center text-white" data-aos="fade-up">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">Về chúng tôi</h1>
+        <p class="text-xl md:text-2xl text-white text-opacity-90 max-w-3xl mx-auto">
+          Câu chuyện của {SHOP_INFO.name} - Nơi hương vị gặp gỡ cảm xúc
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Story -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div data-aos="fade-right">
+          <h2 class="text-4xl md:text-5xl font-bold mb-6">
+            Câu chuyện <span class="text-gradient">của chúng tôi</span>
+          </h2>
+          <div class="space-y-4 text-lg text-gray-700">
+            <p>
+              {SHOP_INFO.name} được thành lập vào năm 2020 với mong muốn mang
+              đến cho khách hàng những trải nghiệm đồ uống tuyệt vời nhất, trong
+              một không gian ấm cúng và thân thiện.
+            </p>
+            <p>
+              Chúng tôi tin rằng mỗi tách đồ uống không chỉ là sự kết hợp của
+              nguyên liệu, mà còn là câu chuyện, là cảm xúc và là khoảnh khắc
+              đáng nhớ. Từ việc chọn lựa nguyên liệu chất lượng cao đến quy
+              trình pha chế tỉ mỉ, mọi chi tiết đều được chăm chút để mang lại
+              hương vị hoàn hảo nhất.
+            </p>
+            <p>
+              Sau 3 năm hoạt động, {SHOP_INFO.name} đã trở thành điểm đến yêu
+              thích của hơn 5,000 khách hàng thường xuyên, với hơn 100 món đồ
+              uống đa dạng phục vụ mọi khẩu vị.
+            </p>
+          </div>
+        </div>
+
+        <div data-aos="fade-left">
+          <div
+            class="h-96 rounded-3xl gradient-pastel shadow-2xl flex items-center justify-center"
+          >
+            <div class="text-center p-8">
+              <svg
+                class="w-32 h-32 mx-auto mb-4 text-white opacity-60"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                ></path>
+              </svg>
+              <p class="text-white text-lg font-medium">
+                Thêm hình ảnh quán tại<br />
+                <code class="text-sm bg-white bg-opacity-20 px-2 py-1 rounded"
+                  >/public/images/about/</code
+                >
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Values -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+          Giá trị <span class="text-gradient">cốt lõi</span>
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Những giá trị định hướng mọi hoạt động của chúng tôi
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          values.map((value, index) => (
+            <div data-aos="fade-up" data-aos-delay={index * 100}>
+              <Card>
+                <div class="p-6 text-center">
+                  <div class="text-6xl mb-4">{value.icon}</div>
+                  <h3 class="text-xl font-bold mb-3">{value.title}</h3>
+                  <p class="text-gray-600">{value.description}</p>
+                </div>
+              </Card>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Our Team -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+          Đội ngũ <span class="text-gradient">của chúng tôi</span>
+        </h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Những người tạo nên thành công của {SHOP_INFO.name}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {
+          team.map((member, index) => (
+            <div data-aos="fade-up" data-aos-delay={index * 100}>
+              <Card>
+                {/* Avatar placeholder */}
+                <div class="h-64 bg-gradient-pastel flex items-center justify-center">
+                  <div class="w-32 h-32 rounded-full bg-white bg-opacity-50 flex items-center justify-center">
+                    <svg
+                      class="w-20 h-20 text-white"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                </div>
+
+                <div class="p-6 text-center">
+                  <h3 class="text-xl font-bold mb-1">{member.name}</h3>
+                  <p class="text-primary-600 font-semibold mb-3">
+                    {member.role}
+                  </p>
+                  <p class="text-gray-600 text-sm">{member.description}</p>
+                </div>
+              </Card>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="section-padding gradient-sunset">
+    <div class="container-custom">
+      <div
+        class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center text-white"
+        data-aos="zoom-in"
+      >
+        <div>
+          <div class="text-5xl md:text-6xl font-bold mb-2">3+</div>
+          <div class="text-lg opacity-90">Năm hoạt động</div>
+        </div>
+        <div>
+          <div class="text-5xl md:text-6xl font-bold mb-2">5K+</div>
+          <div class="text-lg opacity-90">Khách hàng</div>
+        </div>
+        <div>
+          <div class="text-5xl md:text-6xl font-bold mb-2">100+</div>
+          <div class="text-lg opacity-90">Món đồ uống</div>
+        </div>
+        <div>
+          <div class="text-5xl md:text-6xl font-bold mb-2">4.9★</div>
+          <div class="text-lg opacity-90">Đánh giá</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-white">
+    <div class="container-custom">
+      <div class="text-center" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          Hãy trở thành một phần của câu chuyện!
+        </h2>
+        <p class="text-xl text-gray-600 mb-8">
+          Ghé thăm chúng tôi và trải nghiệm sự khác biệt
+        </p>
+        <a href="/contact" class="btn-primary text-lg"> Liên hệ ngay </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

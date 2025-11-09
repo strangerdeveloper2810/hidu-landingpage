@@ -1,0 +1,247 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Card from '../components/ui/Card.astro';
+import Button from '../components/ui/Button.astro';
+import { promotions } from '../data/menu';
+import { SHOP_INFO } from '../utils/constants';
+
+const seoConfig = {
+  title: 'Khuyến mãi',
+  description: `Khám phá các chương trình khuyến mãi hấp dẫn tại ${SHOP_INFO.name}. Giảm giá đến 20%, combo tiết kiệm, ưu đãi thành viên VIP.`,
+  keywords: [
+    'khuyến mãi',
+    'ưu đãi',
+    'giảm giá',
+    'voucher',
+    'combo',
+    SHOP_INFO.name,
+  ],
+};
+---
+
+<BaseLayout {...seoConfig}>
+  <!-- Page Header -->
+  <section class="relative py-20 gradient-sunset overflow-hidden">
+    <div class="absolute inset-0 opacity-10">
+      <div
+        class="absolute top-10 left-20 w-60 h-60 bg-white rounded-full blur-3xl animate-float"
+      >
+      </div>
+      <div
+        class="absolute bottom-10 right-20 w-80 h-80 bg-white rounded-full blur-3xl animate-float"
+        style="animation-delay: 2s;"
+      >
+      </div>
+    </div>
+
+    <div class="container-custom relative z-10">
+      <div class="text-center text-white" data-aos="fade-up">
+        <h1 class="text-5xl md:text-6xl font-bold mb-6">Khuyến mãi</h1>
+        <p class="text-xl md:text-2xl text-white text-opacity-90 max-w-3xl mx-auto">
+          Hàng loạt ưu đãi hấp dẫn dành riêng cho bạn!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Promotions Grid -->
+  <section class="section-padding bg-gray-50">
+    <div class="container-custom">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {
+          promotions.map((promo, index) => (
+            <div data-aos="fade-up" data-aos-delay={index * 100}>
+              <Card>
+                {/* Image */}
+                <div class="relative h-56 gradient-sunset overflow-hidden">
+                  <div class="absolute inset-0 flex items-center justify-center">
+                    <div class="text-center p-6">
+                      <div class="text-6xl font-bold text-white mb-4">
+                        {promo.discount}
+                      </div>
+                      <p class="text-white text-lg">{promo.title}</p>
+                    </div>
+                  </div>
+
+                  {/* Badge */}
+                  <div class="absolute top-4 right-4">
+                    <span class="bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full shadow-lg">
+                      HOT
+                    </span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div class="p-6">
+                  <h3 class="text-2xl font-bold mb-3 text-gray-800">
+                    {promo.title}
+                  </h3>
+
+                  <p class="text-gray-600 mb-4">{promo.description}</p>
+
+                  <div class="mb-4">
+                    <div class="text-sm text-gray-500 mb-2">
+                      Áp dụng đến:{' '}
+                      <span class="font-semibold text-gray-700">
+                        {promo.validUntil.toLocaleDateString('vi-VN')}
+                      </span>
+                    </div>
+                  </div>
+
+                  {promo.terms && promo.terms.length > 0 && (
+                    <div class="mb-6">
+                      <h4 class="font-semibold text-gray-800 mb-2 text-sm">
+                        Điều kiện áp dụng:
+                      </h4>
+                      <ul class="space-y-1 text-sm text-gray-600">
+                        {promo.terms.map((term) => (
+                          <li class="flex items-start">
+                            <svg
+                              class="w-4 h-4 mr-2 mt-0.5 text-primary-500 flex-shrink-0"
+                              fill="none"
+                              stroke="currentColor"
+                              viewBox="0 0 24 24"
+                            >
+                              <path
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                d="M5 13l4 4L19 7"
+                              />
+                            </svg>
+                            <span>{term}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  )}
+
+                  <Button href="/contact" variant="primary" class="w-full">
+                    Áp dụng ngay
+                  </Button>
+                </div>
+              </Card>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Use -->
+  <section class="section-padding bg-white">
+    <div class="container-custom">
+      <div class="text-center mb-16" data-aos="fade-up">
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+          Cách sử dụng <span class="text-gradient">ưu đãi</span>
+        </h2>
+        <p class="text-xl text-gray-600">
+          3 bước đơn giản để nhận ưu đãi
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Step 1 -->
+        <div class="text-center" data-aos="fade-up" data-aos-delay="0">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full gradient-primary flex items-center justify-center text-white text-3xl font-bold shadow-lg"
+          >
+            1
+          </div>
+          <h3 class="text-xl font-bold mb-3">Chọn ưu đãi</h3>
+          <p class="text-gray-600">
+            Xem danh sách khuyến mãi và chọn ưu đãi phù hợp
+          </p>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="text-center" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full gradient-secondary flex items-center justify-center text-white text-3xl font-bold shadow-lg"
+          >
+            2
+          </div>
+          <h3 class="text-xl font-bold mb-3">Đặt hàng</h3>
+          <p class="text-gray-600">
+            Đặt hàng trực tuyến hoặc đến trực tiếp quán
+          </p>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="text-center" data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="w-20 h-20 mx-auto mb-6 rounded-full gradient-accent flex items-center justify-center text-white text-3xl font-bold shadow-lg"
+          >
+            3
+          </div>
+          <h3 class="text-xl font-bold mb-3">Nhận ưu đãi</h3>
+          <p class="text-gray-600">
+            Thông báo mã ưu đãi khi thanh toán để được giảm giá
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Subscribe -->
+  <section class="section-padding gradient-ocean">
+    <div class="container-custom">
+      <div class="text-center text-white max-w-3xl mx-auto" data-aos="zoom-in">
+        <h2 class="text-4xl md:text-5xl font-bold mb-6">
+          Đăng ký nhận ưu đãi
+        </h2>
+        <p class="text-xl mb-8 text-white text-opacity-90">
+          Nhập số điện thoại để nhận thông tin khuyến mãi mới nhất qua Zalo
+        </p>
+
+        <form class="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+          <input
+            type="tel"
+            placeholder="Số điện thoại của bạn"
+            required
+            class="flex-1 px-6 py-4 rounded-full text-gray-800 focus:outline-none focus:ring-4 focus:ring-white focus:ring-opacity-30"
+          />
+          <button
+            type="submit"
+            class="px-8 py-4 rounded-full bg-white text-primary-600 font-semibold hover:bg-gray-100 transition-all hover:shadow-xl"
+          >
+            Đăng ký
+          </button>
+        </form>
+
+        <p class="text-sm mt-6 text-white text-opacity-75">
+          Chúng tôi tôn trọng quyền riêng tư của bạn. Thông tin chỉ dùng để gửi
+          ưu đãi.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-16 bg-gray-50">
+    <div class="container-custom">
+      <div class="text-center" data-aos="fade-up">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">
+          Còn chần chừ gì nữa?
+        </h2>
+        <p class="text-xl text-gray-600 mb-8">
+          Đặt hàng ngay để tận hưởng ưu đãi hấp dẫn!
+        </p>
+        <Button href="/contact" variant="primary" size="lg">
+          Đặt hàng ngay
+        </Button>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Subscribe form handling
+  document.querySelector('form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target as HTMLFormElement);
+    console.log('Subscribe:', formData);
+    alert('Đăng ký thành công! Bạn sẽ nhận được thông báo ưu đãi qua Zalo.');
+    (e.target as HTMLFormElement).reset();
+  });
+</script>

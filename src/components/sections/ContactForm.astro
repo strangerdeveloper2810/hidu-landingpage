@@ -1,0 +1,356 @@
+---
+import Card from '../ui/Card.astro';
+import Input from '../ui/Input.astro';
+import { menuItems } from '../../data/menu';
+import { CATEGORIES } from '../../utils/constants';
+---
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <!-- Order Form -->
+  <div data-aos="fade-right">
+    <Card>
+      <div class="p-8">
+        <h3 class="text-2xl font-bold mb-6 text-gradient">Đặt hàng</h3>
+
+        <form id="order-form" class="space-y-4">
+          <Input
+            name="order-name"
+            label="Họ và tên"
+            placeholder="Nguyễn Văn A"
+            required
+          />
+
+          <Input
+            name="order-phone"
+            type="tel"
+            label="Số điện thoại"
+            placeholder="0123 456 789"
+            required
+          />
+
+          <Input
+            name="order-address"
+            label="Địa chỉ giao hàng"
+            placeholder="123 Đường ABC, Quận XYZ"
+          />
+
+          <!-- Menu Selection -->
+          <div class="mb-4">
+            <label class="block text-sm font-medium text-gray-700 mb-2">
+              Chọn món <span class="text-red-500">*</span>
+            </label>
+            <div id="order-items" class="space-y-3 max-h-64 overflow-y-auto p-4 bg-gray-50 rounded-lg">
+              <!-- Selected items will be added here dynamically -->
+              <p class="text-gray-500 text-sm" id="empty-cart">
+                Chưa có món nào. Thêm món từ danh sách bên dưới.
+              </p>
+            </div>
+
+            <div class="mt-3">
+              <button
+                type="button"
+                id="add-item-btn"
+                class="text-primary-600 hover:text-primary-700 font-semibold text-sm flex items-center"
+              >
+                <svg class="w-5 h-5 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+                </svg>
+                Thêm món
+              </button>
+            </div>
+          </div>
+
+          <!-- Add Item Modal (hidden by default) -->
+          <div id="add-item-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[80vh] overflow-y-auto">
+              <div class="p-6">
+                <div class="flex justify-between items-center mb-4">
+                  <h4 class="text-xl font-bold">Chọn món</h4>
+                  <button type="button" id="close-modal" class="text-gray-500 hover:text-gray-700">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                  </button>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  {menuItems.map((item) => (
+                    <button
+                      type="button"
+                      class="text-left p-4 border-2 border-gray-200 rounded-lg hover:border-primary-500 transition-colors add-menu-item"
+                      data-item-id={item.id}
+                      data-item-name={item.name}
+                      data-item-price={item.price}
+                    >
+                      <div class="font-semibold text-gray-800">{item.name}</div>
+                      <div class="text-sm text-gray-600">{CATEGORIES[item.category]}</div>
+                      <div class="text-primary-600 font-bold mt-1">{item.price.toLocaleString('vi-VN')}đ</div>
+                    </button>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <Input
+            name="order-note"
+            type="textarea"
+            label="Ghi chú"
+            placeholder="Yêu cầu đặc biệt..."
+            rows={3}
+          />
+
+          <div class="flex items-center justify-between pt-4">
+            <div class="text-2xl font-bold text-gradient" id="order-total">
+              Tổng: 0đ
+            </div>
+            <button
+              type="submit"
+              class="btn-primary"
+            >
+              Đặt hàng
+            </button>
+          </div>
+        </form>
+      </div>
+    </Card>
+  </div>
+
+  <!-- Reservation Form -->
+  <div data-aos="fade-left">
+    <Card>
+      <div class="p-8">
+        <h3 class="text-2xl font-bold mb-6 text-gradient">Đặt bàn</h3>
+
+        <form id="reservation-form" class="space-y-4">
+          <Input
+            name="reservation-name"
+            label="Họ và tên"
+            placeholder="Nguyễn Văn A"
+            required
+          />
+
+          <Input
+            name="reservation-phone"
+            type="tel"
+            label="Số điện thoại"
+            placeholder="0123 456 789"
+            required
+          />
+
+          <div class="grid grid-cols-2 gap-4">
+            <Input
+              name="reservation-date"
+              type="date"
+              label="Ngày"
+              required
+            />
+
+            <Input
+              name="reservation-time"
+              type="time"
+              label="Giờ"
+              required
+            />
+          </div>
+
+          <div class="mb-4">
+            <label for="reservation-guests" class="block text-sm font-medium text-gray-700 mb-2">
+              Số người <span class="text-red-500">*</span>
+            </label>
+            <select
+              id="reservation-guests"
+              name="reservation-guests"
+              required
+              class="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none focus:ring-2 focus:ring-primary-200 transition-all duration-300"
+            >
+              <option value="">Chọn số người</option>
+              {Array.from({ length: 20 }, (_, i) => i + 1).map((num) => (
+                <option value={num}>{num} người</option>
+              ))}
+            </select>
+          </div>
+
+          <Input
+            name="reservation-note"
+            type="textarea"
+            label="Ghi chú"
+            placeholder="Yêu cầu đặc biệt (ví dụ: cần chỗ ngồi yên tĩnh, sinh nhật...)"
+            rows={3}
+          />
+
+          <button
+            type="submit"
+            class="btn-primary w-full"
+          >
+            Đặt bàn
+          </button>
+        </form>
+      </div>
+    </Card>
+  </div>
+</div>
+
+<script>
+  // Order form state
+  let orderItems: Array<{id: string, name: string, price: number, quantity: number}> = [];
+
+  // Modal functionality
+  const modal = document.getElementById('add-item-modal');
+  const addItemBtn = document.getElementById('add-item-btn');
+  const closeModalBtn = document.getElementById('close-modal');
+
+  addItemBtn?.addEventListener('click', () => {
+    modal?.classList.remove('hidden');
+  });
+
+  closeModalBtn?.addEventListener('click', () => {
+    modal?.classList.add('hidden');
+  });
+
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      modal.classList.add('hidden');
+    }
+  });
+
+  // Add item to order
+  document.querySelectorAll('.add-menu-item').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.getAttribute('data-item-id')!;
+      const name = btn.getAttribute('data-item-name')!;
+      const price = parseInt(btn.getAttribute('data-item-price')!);
+
+      const existingItem = orderItems.find(item => item.id === id);
+
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        orderItems.push({ id, name, price, quantity: 1 });
+      }
+
+      updateOrderDisplay();
+      modal?.classList.add('hidden');
+    });
+  });
+
+  function updateOrderDisplay() {
+    const container = document.getElementById('order-items')!;
+    const emptyCart = document.getElementById('empty-cart');
+    const totalEl = document.getElementById('order-total');
+
+    if (orderItems.length === 0) {
+      emptyCart?.classList.remove('hidden');
+      totalEl!.textContent = 'Tổng: 0đ';
+      return;
+    }
+
+    emptyCart?.classList.add('hidden');
+
+    const itemsHTML = orderItems.map((item, index) => `
+      <div class="flex items-center justify-between bg-white p-3 rounded-lg shadow-sm">
+        <div class="flex-1">
+          <div class="font-semibold text-gray-800">${item.name}</div>
+          <div class="text-sm text-gray-600">${item.price.toLocaleString('vi-VN')}đ</div>
+        </div>
+        <div class="flex items-center space-x-3">
+          <button type="button" class="decrease-qty w-8 h-8 rounded-full bg-gray-200 hover:bg-gray-300 flex items-center justify-center" data-index="${index}">
+            -
+          </button>
+          <span class="font-semibold w-8 text-center">${item.quantity}</span>
+          <button type="button" class="increase-qty w-8 h-8 rounded-full bg-primary-500 text-white hover:bg-primary-600 flex items-center justify-center" data-index="${index}">
+            +
+          </button>
+          <button type="button" class="remove-item text-red-500 hover:text-red-700 ml-2" data-index="${index}">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+    `).join('');
+
+    container.innerHTML = itemsHTML;
+
+    // Attach event listeners
+    container.querySelectorAll('.increase-qty').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const index = parseInt(btn.getAttribute('data-index')!);
+        orderItems[index].quantity++;
+        updateOrderDisplay();
+      });
+    });
+
+    container.querySelectorAll('.decrease-qty').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const index = parseInt(btn.getAttribute('data-index')!);
+        if (orderItems[index].quantity > 1) {
+          orderItems[index].quantity--;
+        } else {
+          orderItems.splice(index, 1);
+        }
+        updateOrderDisplay();
+      });
+    });
+
+    container.querySelectorAll('.remove-item').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const index = parseInt(btn.getAttribute('data-index')!);
+        orderItems.splice(index, 1);
+        updateOrderDisplay();
+      });
+    });
+
+    // Update total
+    const total = orderItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    totalEl!.textContent = `Tổng: ${total.toLocaleString('vi-VN')}đ`;
+  }
+
+  // Order form submission
+  document.getElementById('order-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    if (orderItems.length === 0) {
+      alert('Vui lòng chọn ít nhất một món!');
+      return;
+    }
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = {
+      name: formData.get('order-name'),
+      phone: formData.get('order-phone'),
+      address: formData.get('order-address'),
+      items: orderItems,
+      note: formData.get('order-note'),
+    };
+
+    console.log('Order data:', data);
+    alert('Đơn hàng đã được gửi! (Frontend only - Backend sẽ được phát triển sau)');
+
+    // Reset form
+    (e.target as HTMLFormElement).reset();
+    orderItems = [];
+    updateOrderDisplay();
+  });
+
+  // Reservation form submission
+  document.getElementById('reservation-form')?.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    const data = {
+      name: formData.get('reservation-name'),
+      phone: formData.get('reservation-phone'),
+      date: formData.get('reservation-date'),
+      time: formData.get('reservation-time'),
+      guests: formData.get('reservation-guests'),
+      note: formData.get('reservation-note'),
+    };
+
+    console.log('Reservation data:', data);
+    alert('Đặt bàn thành công! (Frontend only - Backend sẽ được phát triển sau)');
+
+    // Reset form
+    (e.target as HTMLFormElement).reset();
+  });
+</script>
