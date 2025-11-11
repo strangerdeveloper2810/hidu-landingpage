@@ -4,7 +4,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
 import { join } from 'path';
-import { AppResolver } from './app.resolver';
+import { MenuModule } from './menu/menu.module';
 
 @Module({
   imports: [
@@ -25,8 +25,8 @@ import { AppResolver } from './app.resolver';
       context: ({ req, res }) => ({ req, res }), // Pass request/response to resolvers
     }),
 
-    // Feature modules sẽ import sau (MenuModule, AuthModule, etc.)
+    // Feature modules
+    MenuModule, // Menu management feature
   ],
-  providers: [AppResolver], // Test resolver
 })
 export class AppModule {}

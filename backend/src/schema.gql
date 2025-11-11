@@ -2,6 +2,61 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateMenuItemInput {
+  category: String!
+  description: String!
+  id: String!
+  imageUrl: String!
+  isNew: Boolean
+  isPopular: Boolean
+  name: String!
+  price: Float!
+  priceLarge: Float
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type MenuItemEntity {
+  _id: ID!
+  category: String!
+  createdAt: DateTime!
+  description: String!
+  id: String!
+  imageUrl: String!
+  isAvailable: Boolean!
+  isBestSeller: Boolean!
+  isNew: Boolean!
+  isPopular: Boolean!
+  name: String!
+  price: Float!
+  priceLarge: Float
+  updatedAt: DateTime!
+}
+
+type Mutation {
+  createMenuItem(input: CreateMenuItemInput!): MenuItemEntity!
+  deleteMenuItem(id: String!): Boolean!
+  toggleMenuItemAvailability(id: String!): MenuItemEntity!
+  updateMenuItem(id: String!, input: UpdateMenuItemInput!): MenuItemEntity!
+}
+
 type Query {
-  hello: String!
+  categories: [String!]!
+  menuItem(id: String!): MenuItemEntity
+  menuItems(category: String, isAvailable: Boolean): [MenuItemEntity!]!
+}
+
+input UpdateMenuItemInput {
+  category: String
+  description: String
+  imageUrl: String
+  isAvailable: Boolean
+  isNew: Boolean
+  isPopular: Boolean
+  name: String
+  price: Float
+  priceLarge: Float
 }
